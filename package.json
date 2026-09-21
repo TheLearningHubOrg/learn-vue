@@ -1,0 +1,20 @@
+{
+  "name": "learn-vue",
+  "version": "1.0.0",
+  "description": "An exhaustive, production-grade Vue 3 Composition API & Pinia architecture masterclass.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/vue.test.mjs"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "composition-api",
+    "pinia",
+    "vue-router",
+    "reactivity"
+  ],
+  "author": "Manthan Ank",
+  "license": "MIT"
+}
