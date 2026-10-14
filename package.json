@@ -1,11 +1,26 @@
 {
   "name": "learn-vue",
   "version": "1.0.0",
+  "private": true,
   "description": "An exhaustive, production-grade Vue 3 Composition API & Pinia architecture masterclass.",
-  "main": "index.js",
   "type": "module",
   "scripts": {
+    "dev": "vite",
+    "start": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
     "test": "node --test tests/vue.test.mjs"
+  },
+  "dependencies": {
+    "vue": "^3.5.13",
+    "pinia": "^2.3.0",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "~5.7.3",
+    "vite": "^6.2.0",
+    "vue-tsc": "^2.2.0"
   },
   "keywords": [
     "vue",
