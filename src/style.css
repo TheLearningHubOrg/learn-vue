@@ -1,14 +1,22 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
-  font-weight: 400;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --surface: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.12);
   color-scheme: dark;
-  color: #f8fafc;
   background-color: #0b0f19;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color: var(--text);
+}
+
+:root:has([data-theme='light']) {
+  --text: #0f172a;
+  --muted: #475569;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  color-scheme: light;
+  background-color: #f8fafc;
 }
 
 * {
@@ -17,15 +25,32 @@
   padding: 0;
 }
 
-body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+#app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
-#app {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2.5rem 1.5rem;
-  width: 100%;
+button,
+input,
+select {
+  font: inherit;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

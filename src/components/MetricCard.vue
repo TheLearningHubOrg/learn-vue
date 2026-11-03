@@ -1,112 +1,74 @@
 <script setup lang="ts">
-interface Props {
+// Vue 3.5+: destructured props stay reactive, and defaults use plain JS syntax.
+const {
+  label,
+  value,
+  hint,
+  variant = 'primary',
+} = defineProps<{
   label: string;
   value: number | string;
-  trend?: string;
-  variant?: 'primary' | 'success' | 'warning' | 'purple';
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  variant: 'primary',
-});
+  hint?: string;
+  variant?: 'primary' | 'success' | 'warning';
+}>();
 
 const emit = defineEmits<{
-  (e: 'inspect', label: string): void;
+  inspect: [label: string];
 }>();
 </script>
 
 <template>
-  <div class="metric-card" :class="`variant-${props.variant}`">
-    <div class="card-header">
-      <span class="card-label">{{ props.label }}</span>
-      <span v-if="props.trend" class="trend-badge">{{ props.trend }}</span>
+  <article class="metric" :class="`metric--${variant}`">
+    <div class="metric-head">
+      <span class="metric-label">{{ label }}</span>
+      <span v-if="hint" class="metric-hint">{{ hint }}</span>
     </div>
-    <div class="card-value">{{ props.value }}</div>
-    <button class="inspect-btn" @click="emit('inspect', props.label)">
-      Inspect State 🔍
-    </button>
-  </div>
+    <div class="metric-value" data-test="value">{{ value }}</div>
+    <button type="button" class="metric-inspect" @click="emit('inspect', label)">Inspect</button>
+  </article>
 </template>
 
 <style scoped>
-.metric-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.metric {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left-width: 4px;
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1rem 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  transition: all 0.25s ease;
+  gap: 0.5rem;
 }
-
-.metric-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(66, 184, 131, 0.4);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+.metric--primary {
+  border-left-color: #42b883;
 }
-
-.variant-primary {
-  border-left: 4px solid #42b883;
+.metric--success {
+  border-left-color: #10b981;
 }
-
-.variant-success {
-  border-left: 4px solid #10b981;
+.metric--warning {
+  border-left-color: #f59e0b;
 }
-
-.variant-warning {
-  border-left: 4px solid #f59e0b;
-}
-
-.variant-purple {
-  border-left: 4px solid #8b5cf6;
-}
-
-.card-header {
+.metric-head {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  gap: 0.5rem;
 }
-
-.card-label {
-  font-size: 0.875rem;
-  color: #94a3b8;
+.metric-label {
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-weight: 600;
+  color: var(--muted);
 }
-
-.trend-badge {
+.metric-hint {
   font-size: 0.75rem;
-  padding: 0.25rem 0.5rem;
-  background: rgba(66, 184, 131, 0.15);
   color: #42b883;
-  border-radius: 9999px;
-  font-weight: 600;
 }
-
-.card-value {
-  font-size: 2rem;
+.metric-value {
+  font-size: 1.75rem;
   font-weight: 700;
-  color: #f8fafc;
   font-variant-numeric: tabular-nums;
 }
-
-.inspect-btn {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #cbd5e1;
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  font-size: 0.8125rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  width: 100%;
-}
-
-.inspect-btn:hover {
-  background: #42b883;
-  color: #0f172a;
-  border-color: #42b883;
+.metric-inspect {
+  align-self: flex-start;
 }
 </style>
